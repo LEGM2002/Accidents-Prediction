@@ -69,6 +69,7 @@ dia_semana = st.selectbox("Día de la semana", ["LUNES","MARTES","MIERCOLES","JU
 clasificacion_vialidad = st.selectbox("Clasificación de la vialidad", vialidades)
 tipo_interseccion = st.selectbox("Tipo de intersección", intersecciones)
 interseccion_semaforizada = st.selectbox("Intersección semaforizada", ["SI", "NO"])
+st.markdown("### Involucrados (default: solo autos)")
 tiene_moto = st.checkbox("Hay moto")
 tiene_bici = st.checkbox("Hay bicicleta")
 tiene_peaton = st.checkbox("Hay peatón")
@@ -84,6 +85,9 @@ if st.button("Predecir"):
     else:
         turno = "NOCHE"
     
+    if not tiene_moto and not tiene_bici and not tiene_peaton and not solo_autos:
+        solo_autos = True
+
     df_test = pd.DataFrame([{
         "tipo_evento": tipo_evento,
         "alcaldia": alcaldia,
@@ -122,9 +126,9 @@ st.markdown("""
     ">
     <h3 style="margin-top: 0;">Severidad</h3>
     <ul>
-    <li><b>0 – Muy baja:</b> No hay personas lesionadas, no participan moto/bici/peatón y solo hay un afectado. La intersección es simple (CRUZ, T o RECTA).</li>
+    <li><b>0 – Muy baja:</b> No hay personas lesionadas, no participan moto/bici/peatón y solo hay un afectado. La intersección es simple (GLORIETA, Y).</li>
     <li><b>1 – Baja:</b> Hay solo una persona lesionada y ninguna persona fallecida.</li>
-    <li><b>2 – Media:</b> Hay 2 lesionados o 2 afectados; o bien participa una moto o una bici, o la intersección es de riesgo medio (GLORIETA, Y).</li>
+    <li><b>2 – Media:</b> Hay 2 lesionados o 2 afectados; o bien participa una moto o una bici, o la intersección es de riesgo medio (CRUZ, T o RECTA).</li>
     <li><b>3 – Alta:</b> Hay 3 o más lesionados/afectados; o participa un peatón con lesionados; o una moto con ≥2 lesionados; o la intersección es de riesgo alto (CURVA, DESNIVEL, RAMAS MULTIPLES).</li>
     <li><b>4 – Muy alta:</b> Ocurre al menos una muerte.</li>
     </ul>
