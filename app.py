@@ -5,7 +5,7 @@ import base64
 
 # Para cargar el logo
 with open("datom.png", "rb") as logo:
-    logo_base64 = base64.b64encode(logo.read()).decode()
+    logo_datom = base64.b64encode(logo.read()).decode()
 
 st.markdown(
     f"""
@@ -18,7 +18,7 @@ st.markdown(
         z-index: 9999;
     }}
     </style>
-    <img src="data:image/png;base64,{logo_base64}" class="logo-img">
+    <img src="data:image/png;base64,{logo_datom}" class="logo-img">
     """,
     unsafe_allow_html=True
 )
@@ -50,7 +50,7 @@ clasificacion_vialidad = st.selectbox("Clasificación de la vialidad", vialidade
 tipo_interseccion = st.selectbox("Tipo de intersección", intersecciones)
 interseccion_semaforizada = st.selectbox("Intersección semaforizada", ["SI", "NO"])
 tiene_moto = st.checkbox("Hay moto")
-tiene_bici = st.checkbox("Hay bici")
+tiene_bici = st.checkbox("Hay bicicleta")
 tiene_peaton = st.checkbox("Hay peatón")
 solo_autos = st.checkbox("Solo autos")
 edad_promedio = st.number_input("Edad promedio", min_value=0, max_value=100, value=30)
@@ -88,9 +88,27 @@ if st.button("Predecir"):
 
     # Predicción
     pred = pipeline.predict(df_test)
-    prob = pipeline.predict_proba(df_test)[:,1]  # probabilidad de clase positiva
+    #prob = pipeline.predict_proba(df_test)[:,1]  # probabilidad de clase positiva
 
     # Mostrar resultados
     st.success(f"Predicción de severidad: {pred[0]}")
-    st.info(f"Probabilidad estimada: {prob[0]:.2f}")
+    #st.info(f"Probabilidad estimada: {prob[0]:.2f}")
+
+st.markdown("""
+    <div style="
+        background-color: #1F2126;
+        padding: 16px;
+        border-radius: 10px;
+    ">
+    <h3 style="margin-top: 0;">Severidad</h3>
+    <ul>
+    <li><b>0 – Muy baja:</b> No hay personas lesionadas, no participan moto/bici/peatón y solo hay un afectado. La intersección es simple (CRUZ, T o RECTA).</li>
+    <li><b>1 – Baja:</b> Hay solo una persona lesionada y ninguna persona fallecida.</li>
+    <li><b>2 – Media:</b> Hay 2 lesionados o 2 afectados; o bien participa una moto o una bici, o la intersección es de riesgo medio (GLORIETA, Y).</li>
+    <li><b>3 – Alta:</b> Hay 3 o más lesionados/afectados; o participa un peatón con lesionados; o una moto con ≥2 lesionados; o la intersección es de riesgo alto (CURVA, DESNIVEL, RAMAS MULTIPLES).</li>
+    <li><b>4 – Muy alta:</b> Ocurre al menos una muerte.</li>
+    </ul>
+    </div>
+""", unsafe_allow_html=True)
+
 
