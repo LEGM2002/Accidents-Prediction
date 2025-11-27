@@ -10,15 +10,35 @@ with open("datom.png", "rb") as logo:
 st.markdown(
     f"""
     <style>
+    .logo-container {{
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        margin-bottom: 20px;
+    }}
+
     .logo-img {{
-        position: fixed;
-        top: 30px;
-        left: 30px;
-        width: 200px;
-        z-index: 9999;
+        width: 180px;
+    }}
+
+    /* Ajuste responsivo para celulares */
+    @media (max-width: 600px) {{
+        .logo-img {{
+            width: 120px;
+        }}
+    }}
+
+    /* Ajuste para pantallas muy pequeñas */
+    @media (max-width: 400px) {{
+        .logo-img {{
+            width: 90px;
+        }}
     }}
     </style>
-    <img src="data:image/png;base64,{logo_datom}" class="logo-img">
+
+    <div class="logo-container">
+        <img src="data:image/png;base64,{logo_datom}" class="logo-img">
+    </div>
     """,
     unsafe_allow_html=True
 )
