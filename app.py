@@ -69,7 +69,7 @@ dia_semana = st.selectbox("Día de la semana", ["LUNES","MARTES","MIERCOLES","JU
 clasificacion_vialidad = st.selectbox("Clasificación de la vialidad", vialidades)
 tipo_interseccion = st.selectbox("Tipo de intersección", intersecciones)
 interseccion_semaforizada = st.selectbox("Intersección semaforizada", ["SI", "NO"])
-st.markdown("### Involucrados (default: solo autos)")
+st.markdown("Involucrados (default: solo autos)")
 tiene_moto = st.checkbox("Hay moto")
 tiene_bici = st.checkbox("Hay bicicleta")
 tiene_peaton = st.checkbox("Hay peatón")
