@@ -56,7 +56,7 @@ with open("modelo.pkl", "rb") as f:
     pipeline = pickle.load(f)
 
 # Title de la página
-st.set_page_config(page_title="Predicción de Accidentes CDMX", layout="centered")
+st.set_page_config(page_title="Predicción de Severidad en Accidentes en la CDMX", layout="centered")
 st.title("Predicción de Accidentes CDMX")
 
 st.markdown("Completa los datos del accidente para predecir la severidad estimada.")
